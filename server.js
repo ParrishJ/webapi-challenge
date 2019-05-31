@@ -30,7 +30,7 @@ server.post("/projects", (req, res) => {
 
 server.get("/projects/:id", (req, res) => {
   const { id } = req.params;
-  console.log(req.params.id);
+  console.log(req.body);
   Projects.get(id)
     .then(project => {
       res.status(200).json({ project });
@@ -64,6 +64,24 @@ server.delete("/projects/:id", (req, res) => {
 });
 
 //CRUD ops for Actions
+
+server.post("/actions/:id", validateId, (req, res) => {
+  const { description, notes } = req.body;
+  const project_id = req.params.id;
+  Actions.insert({
+    description,
+    notes,
+    project_id
+  })
+    .then(response => {
+      res.status(201).json({ description, notes, project_id });
+    })
+    .catch(error => {
+      res.status(500).json({
+        error: "There was an error while adding the action to the database"
+      });
+    });
+});
 
 server.get("/actions/:id", (req, res) => {
   const { id } = req.params;
@@ -99,5 +117,15 @@ server.delete("/actions/:id", (req, res) => {
       res.status(500).json({ error: "Error removing Action" });
     });
 });
+
+//custom middleware
+
+function validateId(req, res, next) {
+  Projects.get(req.params.id).then(project => {
+    if (project === null) {
+      res.status(400).json({ error: "Project does not exist" });
+    } else next();
+  });
+}
 
 module.exports = server;
