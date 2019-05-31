@@ -63,4 +63,41 @@ server.delete("/projects/:id", (req, res) => {
     });
 });
 
+//CRUD ops for Actions
+
+server.get("/actions/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(req.params.id);
+  Actions.get(id)
+    .then(action => {
+      res.status(200).json({ action });
+    })
+    .catch(error => {
+      res.status(500).json({ error: "Action could not be retrieved" });
+    });
+});
+
+server.put("/actions/:id", (req, res) => {
+  const { id } = req.params;
+  const { description, notes } = req.body;
+  Actions.update(id, { description, notes })
+    .then(response => {
+      res.status(200).json({ description, notes });
+    })
+    .catch(error => {
+      res.status(500).json({ error: "Action could not be updated" });
+    });
+});
+
+server.delete("/actions/:id", (req, res) => {
+  const { id } = req.params;
+  Actions.remove(id)
+    .then(response => {
+      res.status(200).json({ message: "Action removed successfully" });
+    })
+    .catch(error => {
+      res.status(500).json({ error: "Error removing Action" });
+    });
+});
+
 module.exports = server;
