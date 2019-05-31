@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+  - Two parts we learned about express this week are how to write express middleware and how server side routing occurs in express.
 
-- [ ] Describe a Resource?
+* [ ] Describe Middleware?
+
+  - Middleware are pieces of code that extend the base functionality of express. Middleware comes in different forms and can be included with express, provided by a third party, or be written on the fly a developer.
+
+* [ ] Describe a Resource?
+
+  - In the context of a RESTful web api, every piece of information that the api has access to is a resource. Resources can be users, passwords, or any other data that can be accessed by the api.
 
 - [ ] What can the API return to help clients know if a request was successful?
 
-- [ ] How can we partition our application into sub-applications?
+  - An api can return a status code and a message to help the client know if the request was successful. In our case, the message was usually formatted in the form of a json object.
+
+* [ ] How can we partition our application into sub-applications?
+
+  - Applications can be partitioned into sub-applications through the use of Express routers. Organizing resources by using Express routers can help make the management of those resources easier for the developer.
 
 ## Project Setup
 
